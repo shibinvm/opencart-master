@@ -3,6 +3,8 @@
 
 The ``format_datetime`` filter formats a date time:
 
+    public function formatDateTime(Environment $env, $date, ?string $dateFormat = 'medium', ?string $timeFormat = 'medium', string $pattern = '', $timezone = null, string $calendar = 'gregorian', string $locale = null): string
+
 .. code-block:: twig
 
     {# Aug 7, 2019, 11:39:12 PM #}
@@ -47,15 +49,10 @@ By default, the filter uses the current locale. You can pass it explicitly:
 
     .. code-block:: bash
 
-        $ composer require twig/intl-extra
+        $ composer req twig/intl-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
-
-    .. code-block:: bash
-
-        $ composer require twig/extra-bundle
-
-    Otherwise, add the extension explicitly on the Twig environment::
+    Then, use the ``twig/extra-bundle`` on Symfony projects or add the extension
+    explicitly on the Twig environment::
 
         use Twig\Extra\Intl\IntlExtension;
 
@@ -69,5 +66,3 @@ Arguments
 * ``dateFormat``: The date format
 * ``timeFormat``: The time format
 * ``pattern``: A date time pattern
-* ``timezone``: The date timezone
-* ``calendar``: The calendar (Gregorian by default)

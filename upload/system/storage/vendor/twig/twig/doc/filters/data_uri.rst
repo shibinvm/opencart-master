@@ -1,10 +1,10 @@
 ``data_uri``
 ============
 
-The ``data_uri`` filter generates a URL using the data scheme as defined in
-`RFC 2397`_:
+The ``data_uri`` filter generates a URL using the data scheme as defined in RFC
+2397:
 
-.. code-block:: html+twig
+.. code-block:: twig
 
     {{ image_data|data_uri }}
 
@@ -26,15 +26,10 @@ The ``data_uri`` filter generates a URL using the data scheme as defined in
 
     .. code-block:: bash
 
-        $ composer require twig/html-extra
+        $ composer req twig/html-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
-
-    .. code-block:: bash
-
-        $ composer require twig/extra-bundle
-
-    Otherwise, add the extension explicitly on the Twig environment::
+    Then, use the ``twig/extra-bundle`` on Symfony projects or add the extension
+    explicitly on the Twig environment::
 
         use Twig\Extra\Html\HtmlExtension;
 
@@ -43,7 +38,7 @@ The ``data_uri`` filter generates a URL using the data scheme as defined in
 
 .. note::
 
-    The filter does not perform any length validation on purpose (limit depends
+    The filter does not perform any length validation on purpose (limits depends
     on the usage context), validation should be done before calling this filter.
 
 Arguments
@@ -51,5 +46,3 @@ Arguments
 
 * ``mime``: The mime type
 * ``parameters``: An array of parameters
-
-.. _RFC 2397: https://tools.ietf.org/html/rfc2397

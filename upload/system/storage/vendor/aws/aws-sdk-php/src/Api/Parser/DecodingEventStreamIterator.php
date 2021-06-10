@@ -150,7 +150,7 @@ class DecodingEventStreamIterator implements Iterator
                 $numBytes
             ) = $this->parseHeaders($prelude[self::LENGTH_HEADERS]);
 
-            $event[self::PAYLOAD] = Psr7\Utils::streamFor(
+            $event[self::PAYLOAD] = Psr7\stream_for(
                 $this->readAndHashBytes(
                     $prelude[self::LENGTH_TOTAL] - self::BYTES_PRELUDE
                     - $numBytes - self::BYTES_TRAILING

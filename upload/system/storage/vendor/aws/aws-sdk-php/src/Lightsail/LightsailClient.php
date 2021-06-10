@@ -257,8 +257,6 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise resetDistributionCacheAsync(array $args = [])
  * @method \Aws\Result sendContactMethodVerification(array $args = [])
  * @method \GuzzleHttp\Promise\Promise sendContactMethodVerificationAsync(array $args = [])
- * @method \Aws\Result setIpAddressType(array $args = [])
- * @method \GuzzleHttp\Promise\Promise setIpAddressTypeAsync(array $args = [])
  * @method \Aws\Result startInstance(array $args = [])
  * @method \GuzzleHttp\Promise\Promise startInstanceAsync(array $args = [])
  * @method \Aws\Result startRelationalDatabase(array $args = [])

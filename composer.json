@@ -25,7 +25,6 @@
     "scssphp/scssphp": "1.4.0",
     "php": ">=7.1.0",
     "twig/twig": "^3.0",
-    "aws/aws-sdk-php": "^3.142.1",
-	"ext-gd": " *"
+    "aws/aws-sdk-php": "^3.142.1"
   }
 }

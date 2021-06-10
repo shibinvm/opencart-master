@@ -75,13 +75,9 @@ class SignatureV4 implements SignatureInterface
         $this->unsigned = isset($options['unsigned-body']) ? $options['unsigned-body'] : false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function signRequest(
         RequestInterface $request,
-        CredentialsInterface $credentials,
-        $signingService = null
+        CredentialsInterface $credentials
     ) {
         $ldt = gmdate(self::ISO8601_BASIC);
         $sdt = substr($ldt, 0, 8);
@@ -91,8 +87,7 @@ class SignatureV4 implements SignatureInterface
         if ($token = $credentials->getSecurityToken()) {
             $parsed['headers']['X-Amz-Security-Token'] = [$token];
         }
-        $service = isset($signingService) ? $signingService : $this->service;
-        $cs = $this->createScope($sdt, $this->region, $service);
+        $cs = $this->createScope($sdt, $this->region, $this->service);
         $payload = $this->getPayload($request);
 
         if ($payload == self::UNSIGNED_PAYLOAD) {
@@ -104,7 +99,7 @@ class SignatureV4 implements SignatureInterface
         $signingKey = $this->getSigningKey(
             $sdt,
             $this->region,
-            $service,
+            $this->service,
             $credentials->getSecretKey()
         );
         $signature = hash_hmac('sha256', $toSign, $signingKey);
@@ -139,9 +134,6 @@ class SignatureV4 implements SignatureInterface
         return $presignHeaders;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function presign(
         RequestInterface $request,
         CredentialsInterface $credentials,
@@ -201,7 +193,7 @@ class SignatureV4 implements SignatureInterface
         }
 
         $sr = $request->withMethod('GET')
-            ->withBody(Psr7\Utils::streamFor(''))
+            ->withBody(Psr7\stream_for(''))
             ->withoutHeader('Content-Type')
             ->withoutHeader('Content-Length');
 
@@ -230,7 +222,7 @@ class SignatureV4 implements SignatureInterface
         }
 
         try {
-            return Psr7\Utils::hash($request->getBody(), 'sha256');
+            return Psr7\hash($request->getBody(), 'sha256');
         } catch (\Exception $e) {
             throw new CouldNotCreateChecksumException('sha256', $e);
         }
@@ -395,7 +387,7 @@ class SignatureV4 implements SignatureInterface
         return [
             'method'  => $request->getMethod(),
             'path'    => $uri->getPath(),
-            'query'   => Psr7\Query::parse($uri->getQuery()),
+            'query'   => Psr7\parse_query($uri->getQuery()),
             'uri'     => $uri,
             'headers' => $request->getHeaders(),
             'body'    => $request->getBody(),
@@ -406,7 +398,7 @@ class SignatureV4 implements SignatureInterface
     private function buildRequest(array $req)
     {
         if ($req['query']) {
-            $req['uri'] = $req['uri']->withQuery(Psr7\Query::build($req['query']));
+            $req['uri'] = $req['uri']->withQuery(Psr7\build_query($req['query']));
         }
 
         return new Psr7\Request(

@@ -71,15 +71,10 @@ For large strings manipulation, use the ``apply`` tag:
 
     .. code-block:: bash
 
-        $ composer require twig/string-extra
+        $ composer req twig/string-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
-
-    .. code-block:: bash
-
-        $ composer require twig/extra-bundle
-
-    Otherwise, add the extension explicitly on the Twig environment::
+    Then, use the ``twig/extra-bundle`` on Symfony projects or add the extension
+    explicitly on the Twig environment::
 
         use Twig\Extra\String\StringExtension;
 
